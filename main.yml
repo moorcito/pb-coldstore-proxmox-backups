@@ -1,0 +1,12 @@
+- name: Cold store proxmox backups
+  hosts: emilia
+  tasks:
+#  - name: SCP to FreeNAS
+#    command: scp -r /var/lib/vz/dump/ 10.0.0.100:/mnt/top/proxmox-backups/
+#    delegate_to: emilia
+
+  - name: Copy backup files to cold storage
+    synchronize:
+      src: /var/lib/vz/dump
+      dest: rsync://10.0.0.100:/mnt/top/proxmox-backups
+      private_key: /root/.ssh/id_rsa
